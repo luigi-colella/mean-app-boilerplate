@@ -16,9 +16,11 @@ An example of a simple app powered by the MEAN stack (MongoDB, Express.js, Angul
 ## Stack
 
 ![Node.js](./.repository/nodejs.png "Node.js")
+![Typescript](./.repository/typescript.png "Typescript")
 ![Express.js](./.repository/express.png "Express.js")
 ![Angular](./.repository/angular.png "Angular")
 ![MongoDB](./.repository/mongo.png "MongoDB")
+![Docker](./.repository/docker.png "Docker")
 
 ## Prerequisites
 
