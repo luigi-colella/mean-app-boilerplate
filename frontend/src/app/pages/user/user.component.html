@@ -1,0 +1,116 @@
+
+<div class="columns">
+  <div class="column is-3 is-hidden-mobile">
+    <aside class="menu has-background-grey-dark">
+      <ul class="menu-list">
+        <li class="px-5 py-5">
+          <figure class="image is-96x96">
+            <img class="is-rounded" [src]="user.img">
+          </figure>
+        </li>
+        <li class="border-horizontal px-4 py-3">
+          <div class="is-flex is-align-items-center is-size-5">
+            <fa-icon [icon]="faIcons.faUsers" class="is-size-3 mr-4"></fa-icon>
+            <h3 class="has-text-weight-bold">Dettaglio utente</h3>
+          </div>
+        </li>
+      </ul>
+    </aside>
+  </div>
+  <div class="column pl-0">
+    <div class="has-background-grey px-6 py-3">
+      <div class="is-flex is-align-items-center is-size-4">
+        <fa-icon [icon]="faIcons.faUsers" class="is-size-2 mr-5"></fa-icon>
+        <h3 class="has-text-weight-bold">Dettaglio utente</h3>
+      </div>
+    </div>
+    <div class="p-6">
+      <div class="columns">
+        <div class="column">
+          <div class="pt-5">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-128x128">
+                  <img class="is-rounded" [src]="user.img">
+                </figure>
+              </div>
+              <div class="media-content m-auto ml-6">
+                <p class="title is-4 mt-0 mb-3">{{ user.name + ' ' + user.surname }}</p>
+                <p class="subtitle is-5 mt-0 mb-3">{{ user.number }}</p>
+                <p class="subtitle is-5 mt-0 mb-3">{{ user.email }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column">
+          <div class="mt-5 is-flex is-justify-content-space-between">
+            <h2 class="is-size-4 has-text-weight-bold">Corse</h2>
+            <button class="button is-light" (click)="onClickNewRideBtn()">Nuova corsa</button>
+          </div>
+          <div class="mt-5">
+            <table class="table is-fullwidth mt-4">
+              <thead>
+                <tr>
+                  <th>ID corsa</th>
+                  <th>Orario</th>
+                  <th>Data</th>
+                  <th>Partenza</th>
+                  <th>Destinazione</th>
+                  <th>Importo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let ride of userRides">
+                  <td>{{ ride.id }}</td>
+                  <td>{{ ride.date | date:'hh:mm' }}</td>
+                  <td>{{ ride.date | date:'YYYY-MM-dd' }}</td>
+                  <td>{{ ride.departure_address }}</td>
+                  <td>{{ ride.destination_address }}</td>
+                  <td>{{ ride.price / 100 | currency : 'EUR':'symbol':'0.2-2' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-dialog
+[isOpen]="newRideFormIsOpen"
+dialogTitle="Crea una nuova corsa"
+(closeDialog)="onCloseNewRideForm()"
+>
+  <form [formGroup]="newRideForm">
+
+    <app-input-wrapper labelText="Data" [icon]="faIcons.faCalendarAlt">
+      <input class="input" [class.is-danger]="shouldErrorBeShowed('date')" type="text" placeholder="es. 2021-10-24" formControlName="date" required>
+      <p *ngIf="shouldErrorBeShowed('date')" class="help is-danger">Valore non valido</p>
+    </app-input-wrapper>
+
+    <app-input-wrapper labelText="Partenza" [icon]="faIcons.faMapMarkedAlt">
+      <input class="input" [class.is-danger]="shouldErrorBeShowed('departure_address')" type="text" placeholder="es. Torino, Via Accademia delle Scienze 6" formControlName="departure_address" required>
+      <p *ngIf="shouldErrorBeShowed('departure_address')" class="help is-danger">Valore non valido</p>
+    </app-input-wrapper>
+
+    <app-input-wrapper labelText="Destinazione" [icon]="faIcons.faMapMarkedAlt">
+      <input class="input" [class.is-danger]="shouldErrorBeShowed('destination_address')" type="text" placeholder="es. Torino, Via Montebello 20" formControlName="destination_address" required>
+      <p *ngIf="shouldErrorBeShowed('destination_address')" class="help is-danger">Valore non valido</p>
+    </app-input-wrapper>
+
+    <app-input-wrapper labelText="Prezzo" [icon]="faIcons.faEuroSign">
+      <input class="input" [class.is-danger]="shouldErrorBeShowed('price')" type="number" placeholder="es. 20,56" formControlName="price" required>
+      <p *ngIf="shouldErrorBeShowed('price')" class="help is-danger">Valore non valido</p>
+    </app-input-wrapper>
+
+    <div *ngIf="!!newRideFormError" class="notification is-danger is-marginless">{{ newRideFormError }}</div>
+
+    <div class="is-flex is-justify-content-flex-end pt-4">
+      <button class="button is-primary" (click)="onSubmitNewRideForm()" [disabled]="newRideForm.invalid">Crea nuova corsa</button>
+    </div>
+
+  </form>
+</app-dialog>

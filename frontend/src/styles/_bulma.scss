@@ -1,0 +1,10 @@
+$text: #4c545a;
+$grey-dark: #c5cfd8;
+$grey: #e0e6ec;
+$table-cell-border: 2px solid $grey-dark;
+$table-cell-border-width: 2px !important;
+$table-head-cell-border-width: $table-cell-border-width;
+$table-foot-cell-border-width: $table-cell-border-width;
+$modal-content-width: 680px;
+
+@import "~bulma/bulma.sass";

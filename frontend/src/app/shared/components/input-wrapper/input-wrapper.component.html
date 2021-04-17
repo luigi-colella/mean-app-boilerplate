@@ -1,0 +1,15 @@
+<div class="field is-horizontal pb-3">
+  <div class="field-label is-normal">
+    <label class="label">{{ labelText }}</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <div class="control has-icons-left">
+        <ng-content></ng-content>
+        <span *ngIf="icon" class="icon is-small is-left">
+          <fa-icon [icon]="icon"></fa-icon>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
