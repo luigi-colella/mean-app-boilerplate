@@ -10,7 +10,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: mongo_password
       MONGO_INITDB_DATABASE: mongo_database
     volumes:
-      - ./database/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ./database/seeders:/docker-entrypoint-initdb.d
     networks:
       - app-network
 
